@@ -1,0 +1,403 @@
+﻿new password: ola&NO43
+
+
+
+Resources used
+-------------------
+tutorials: https://laravel-livewire.com/screencasts/s4-rich-text
+
+vuetifyjs.com
+quickadminpanel.com for lots of starter template
+https://medium.com/@nedsoft/how-to-add-jquery-ui-plugin-to-a-laravel-app-using-laravel-mix-e85bf0244fc1
+composer require spatie/laravel-newsletter
+composer require snowfire/beautymail beauty email
+sms phone line confirmation: https://www.twilio.com/blog/detect-cellphones-and-verify-phone-numbers-laravel-php-using-authy
+https://github.com/Propaganistas/Laravel-Phone
+https://www.youtube.com/watch?v=43J3fd2nbEs
+nexmo
+https://github.com/mohammad-fouladgar/laravel-mobile-verification
+https://codeforgeek.com/mobile-number-verification-using-laravel/
+
+LOAD DATA INFILE "C:/xampp/htdocs/stecongroup-july-2020/country-code.txt" INTO TABLE countries(id, name, code) SET created_at = CURRENT_TIMESTAMP;
+
+	
+
+1.	In "C:\xampp\htdocs\olanda-laravel", change ".env.example" to '.env'
+
+2.	Create Database on your .env file update the following lines:
+
+		DB_CONNECTION=mysql
+		DB_HOST=127.0.0.1
+		DB_PORT=3306
+		DB_DATABASE=olandasolutions
+		DB_USERNAME=root
+		DB_PASSWORD=
+
+3.	Change directory to "C:\xampp\htdocs\olanda-laravel"
+
+4.	Laravel project dependencies are managed through the PHP Composer tool. 
+	The first step is to install the depencencies by typing this command:
+		composer install
+
+5.	Generate the key with the following command: 
+		php artisan key:generate
+
+6.	We are going to run the built in migrations to create the database tables:
+		php artisan migrate
+
+7.	Now seed the database with:	
+		php artisan db:seed
+
+username: admin@admin.com
+pass: secret
+
+
+php artisan storage:link
+
+Troubleshooting
+------------------------
+If for any reason something goes wrong, try the following:
+
+composer clear-all from the CLI
+
+This will:
+
+php artisan clear-compiled
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+php artisan config:clear
+composer dumpautoload -o
+
+
+Roll Back & Migrate Using A Single Command
+The migrate:refresh command will roll back all of your migrations and then execute the migrate command. This command effectively re-creates your entire database:
+
+php artisan migrate:refresh
+
+// Refresh the database and run all database seeds...
+php artisan migrate:refresh --seed
+
+Deployment
+----------
+
+php artisan config:cache
+Because every time you make a change in the .env file, you have to clear the cache to make the changes work
+
+When pushing your app to production, you should make sure you run the following:
+
+
+yarn prod
+Compress all of you assets into a single file specified in webpack.mix.js.
+
+
+composer cc
+This will run the above clear-all command followed by the cache-all command:
+
+php artisan config:cache
+php artisan route:cache
+
+
+
+
+DEVELOPMENT
+=================
+
+for email: mailtrap.io
+
+bootstrap: getbootstrap.com/components
+
+composer require mews/purifier
+
+Gravatar for comments user images 
+
+Generate slugs when saving Eloquent models https://github.com/spatie/laravel-sluggable
+
+npm install select2: larashop55
+https://www.youtube.com/watch?v=JxkxkhtGFaI
+
+
+
+
+
+*	Drop All Tables & Migrate
+	The migrate:fresh command will drop all tables from the database and then execute the migrate command:
+		php artisan migrate:fresh
+		php artisan migrate:refresh --seed
+
+
+*	New Controller, Model, and Migration with single command
+	You can do it if you start from the model
+	php artisan make:model Todo -mcr
+	if you run 
+		php artisan make:model --help you can see all the available options
+		-m, --migration Create a new migration file for the model.
+		-c, --controller Create a new controller for the model.
+		-r, --resource Indicates if the generated controller should be a resource controller
+
+
+*	Error about missing migration file?
+	It's not a cache issue. You just have to run composer again:
+		composer dump-autoload
+
+		
+
+*	https://laravel-love.readme.io/docs/installation-instructions
+	implement laravel-love for likes and dislikes
+	Pull in the package through Composer.
+		$ composer require cybercog/laravel-love
+	Run database migrations.
+		$ php artisan migrate
+
+
+
+
+
+
+
+moving the default folder for files
+--------------------------------------
+
+By default Laravel will look in Http/Controllers folder to look for Controllers, in order to change this , we have to modify Providers/RouteServiceProviders.php and change 
+protected $namespace = 'App\Http\Controllers'
+to 
+protected $namespace = ''
+But remember, now every time when you include your controller you will have to insert full insert full namespace. For example, now in routes you will have a route to login like this:
+Route::post('login', 'App\Http\Modules\Auth_Module\Controllers\AuthController@login');
+
+In order to move models, to our new folder you can just create them there, but if you want to move User.php model to a new folder - in this case you have to inofrm Laravel and make this change inside of config/auth.php
+
+And one more thing, now when you want to generate controller using artisan command, you have to use relative paths:
+php artisan make:controller ../Modules/Auth_Module/Controllers/AuthController
+
+
+
+
+
+Status Code	Meaning
+404	Not Found (page or other resource doesn’t exist)
+401	Not authorized (not logged in)
+403	Logged in but access to requested area is forbidden
+400	Bad request (something wrong with URL or parameters)
+422	Unprocessable Entity (validation failed)
+500	General server error
+
+
+
+
+Post
+-------
+post, tag, category, logout
+
+
+
+WYSIWYG
+-----------
+we are using summernote for this
+so we will use npm to install summernote and codemirror
+
+https://www.findbestwebhosting.com/beautify-css/
+https://www.findbestwebhosting.com/css-minifier/
+htmLawed documentation
+
+
+
+
+shop template
+----------
+bagisto
+
+
+carbon
+---------
+use Carbon\Carbon;
+$current_timestamp = Carbon::now()->timestamp; // Produces something like 1552296328
+
+If you want GMT just use
+
+Carbon::createFromFormat('D, d M Y H:i:s e', $date, 'UTC')->toDateTimeString();
+
+subscribe to newsletter: check this place: https://www.cloudways.com/blog/laravel-multiple-files-images-upload/
+
+Gantt for project management
+
+
+Google calendar
+----------------
+timeline view (or Multisection events): to show employees arranged in rows with there full day activities
+daily agenda for each staff
+
+schedule meetings
+add attachment to meetings (e.g agenda)
+add attendees
+email all attendees 
+ 
+Get a daily agenda sent to you each morning
+Add your productivity data right into your calendar
+Use a “template” calendar for time-blocking your workday
+
+spatie: $event->addAttendee(['email' => 'anotherEmail@gmail.com']);
+
+
+
+
+invoice management
+--------------------
+Invoices
+Estimates
+Payment Tracking
+Expenses
+Reporting
+Taxes
+
+
+
+departments
+divisions
+employees
+function
+locations
+people
+positions
+position assignment
+organisations
+role
+sites
+skills
+
+
+http://www.databaseanswers.org/data_models/hr_intro.htm
+
+
+- User, Role & Permission
+- Office timetable, shift
+- Department & Designation
+- Todo, Ticket, Appraisal
+- Certificate, Employee
+- Application, Attendance
+- Account, Expense, Payroll
+- Salary Type, Salary Template
+- Pay Slip
+- Leave Application
+- Holiday, Announcement, Meeting
+- Todo, Ticket, Appraisal
+- 30+ Report
+- Multiple emails and SMS gateway
+- Advances statistics on dashboard
+- Security
+- Outstanding dashboard with income wizard
+- Attendance
+- Employee
+- Salary
+- Leave
+
+project Management
+My Project
+Add Project
+Add Project task
+Project Assignment
+Productivity target
+
+
+Employee module
+Attendance Management
+Mark Daily Attendance
+Mark  Custom Attendance
+Work Management
+View  Work Status
+Add Temporary Work Status
+Leave Management
+Apply Leave
+View Leave Status
+View Leave Summary
+Report Management
+View Attendance report
+View Work Reports
+  Project Management
+View Project
+
+
+
+Daily Feeds and thoughts, appreciations and upcoming events
+
+
+Bonus, Credit Facility, Salary Deduction, and provident fund management
+Employee management
+Attendance management with report
+Employee Attendance report
+Customize salary Statement
+Complete payroll management with report
+Award management
+Leave management with report
+Employee role management
+Notice board management
+Holiday management
+Complete expanse management with report
+Fully HRM Management
+Fully Payroll Management
+Create Salary Template monthly
+Employee Clock Attendance
+Manage Time Change Request
+Attendance Report
+Create Leave Category
+Set Leave Quote
+Approve / Reject Leave Applications
+Create/Delete Department
+Create/Delete Designation as required
+Employees Add, Update, Delete or Block t
+Set Employee Access Roles
+Employee Awards
+Award Money
+Give Gift Items
+Employee Get Notified
+Easy User Interface
+Beautiful Dashboard
+Very Easy Setup and Installation
+Easy Tab Interface And Many Moret
+Team management
+Informative dashboards
+File sharing and team conversation
+Task management
+Beautiful file preview and comments
+Invoice management
+Save PDF any report
+Expense payments report
+Custom permissions for team members
+Event calendar
+Private notes
+Leave management
+Employee details view
+Announcement/notice management
+Report printing and export
+Easily accessible UI
+
+
+
+Accounts System (with chart of accounts and all the accounts features almost)
+Asset Management System
+Employee Attendence System
+Best Employee Award System
+Full Employee Recruitment Process
+Loan System
+Employee Leave System
+Notification System
+Payroll System
+Tax System
+Lots of Reports
+Role Permission System
+
+
+
+
+
+newsletter text: 
+------------------
+Join 215,000 Fellow Marketers
+Get expert marketing tips straight to your inbox, and become a better marketer. Subscribe to the Marketing Blog below.
+
+Subscribe now to receive notifications about our latest blog articles: yes please	Nope
+
+Sign up for the ATM Marketplace newsletter to keep up with the latest news and trends on ATM's, fintech and more.
+
+BEFORE YOU GO...
+Sign up for the ICX Association newsletter to keep up with the innovative ways businesses use technology to elevate the customer experience
