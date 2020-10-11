@@ -1,0 +1,304 @@
+"intervention/image": "^2.5",
+
+
+
+Route::('blog/{slug}', ['as'=>'blog.single', 'uses' => 'BlogController@getSingle'])->where('slug', '[\w\d\-\_]+');
+
+
+controller
+---------------
+public function getSingle($slug) {
+	//fetch from the DB based on slug
+	$post = Post::where('slug', '=', $slug)->first();
+
+returnview('blog.single')->withPost($post);
+
+
+// check if slug has changed during edit
+$post = Post::find($id);
+if($request->input('slug')== $post->slug)
+{
+	//validate the other values only
+	$this->validate($request, array(
+	'title' => 'required|max:255'
+	'body' => 'required'
+	))
+}
+else
+{
+	//validate everything
+	$this->validate($request, array(
+	'title' => 'required|max:255'
+	'body' => 'required'
+	))
+}
+
+
+//To set the active state of navigation menu
+" {{Request::is('/', ? "active" : "")}} "
+
+
+Request::is('/', ? "active" : "")
+
+
+lockdown the controller for only auth users:
+
+public function _construct(){
+	$this->middleware('auth');
+}
+
+//saving data through store
+
+$tag = new Tag;
+$tag->name = $request->name;
+$tag->save();
+
+//attaching multiple tags to posts
+select2.github.io/examples.html
+
+//add css and javascript to pages
+@section('stylesheets')
+{!! Html::style('css/parsley.css') !!}
+@section('content')
+
+//add css and javascript to pages
+@section('stylesheets')
+{!! Html::style('css/parsley.css') !!}
+@endsection
+
+@section('scripts')
+{!! Html::scripts('css/parsley.css') !!}
+@endsection
+
+class=select2-multi
+pass a name like this: name[]
+
+//after save command
+if(isset($request->tags))
+{
+	$post->tags()->sync($request->tags, false);
+}
+else(isset($request->tags))
+{
+	$post->tags()->sync(array()	);
+}
+
+//for update
+$('.select2-multi').select2().val({!! json_encode($post->tags()-getRelatedIds())!!}).trigger(change)
+$post->tags()->sync($request->tags, true);
+
+
+//for delete many to many like post-tag example
+$post= Post::find($id);
+//detach the relationship before you destroy
+$post = tags()->detach();
+
+
+
+Appointment
+----------
+client (belongsTo)
+employee(belongsTo, nullable)
+start date
+finish time
+price
+comments
+services(belongsTo)
+
+Clients
+-------
+name
+photo
+email
+
+employees
+----------
+id, position_assigned, doj, 
+
+
+services
+-----------
+name
+description
+photo
+
+
+use Purifier;
+use Image;
+use Storage;
+
+$post = new Post;
+
+$post->title = $request->slug;
+$post->body = Purifier::clean($request->body);
+
+//save our image
+if ($request->hasFile('featured_image'))
+{
+	$image = $request->file('featured_image');
+$filename = time().'.'. $image->getClientOriginalExtension();
+$location = public_path('images/', $filename);
+Image::make($image)->size(800, 400)-save($location);
+$post->image = $filename;
+}
+
+validation for image -> sometimes
+
+github.com/mewebstudio/purifier
+
+
+
+//update our image
+//add the new
+//update the database
+//delete old photo
+if ($request->hasFile('featured_image'))
+{
+	$image = $request->file('featured_image');
+	$filename = time().'.'. $image->getClientOriginalExtension();
+	$location = public_path('images/', $filename);
+	Image::make($image)->size(800, 400)->save($location);
+	$oldfilename = $post->image;
+	//update the database
+	$post->image = $filename;
+}
+
+
+
+<td class="text-center">
+<div class="c-avatar"><img class="c-avatar-img" src="assets/img/avatars/1.jpg" alt="user@email.com"><span class="c-avatar-status bg-success"></span></div>
+</td>
+
+
+IF
+
+Appointment
+----------
+client (belongsTo)
+employee(belongsTo, nullable)
+start date
+finish time
+price
+comments
+services(belongsTo)
+
+Clients
+-------
+name: first_name, last_name
+phone
+photo
+email
+
+
+modules
+ajax
+system calendar
+
+
+
+public function _construct()
+{
+	$this->middleware('auth');
+}
+
+public function index()
+{
+	$tags = Tag::all();
+	return view('tags.index')->withTags($tags);
+}
+
+public function store(Request $request)
+{
+	$this->validate($request, array('name' => 'request|max:225'));
+	$tag = new Tag;
+	$tag-name = $request->name;
+	$tag->save();
+
+	Session::flash();
+	return redirect()->route();
+}
+
+
+@section('stylesheets')
+	{!! Html::style('css/parsley.css') !!}
+@endsection
+
+
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+@endsection
+
+    <link href="{!! asset('css/select2.min.css') !!}" rel="stylesheet">
+    <script src="{!! asset('js/select2.min.js') !!}"></script>
+
+
+
+
+                                    <td>{{ ucwords($employee->position->title) }}</td>
+
+
+
+migration
+---------
+event: id, string->title, string->color,date->start_date end_date, timestamps
+
+controller
+-----------
+index:
+$events = Event::all();
+$event = [];
+
+foreach($events as $row)
+{	
+	$enddate = $row->end_date.'24:00:00';
+	$event[] = \Calendar::event
+	(
+		$row->title,
+		true,
+		new \DateTime($row->start_date),
+		new \DateTime($row->end_time),
+		$row->id,
+		[ 'color' => $row->color,]
+	);
+}
+
+$calendar = \Calendar::addEvents($event);
+return view('eventpage', compact('events', 'calendar'));
+
+
+
+ /**
+  * Send a newsletter campaign.
+  *
+  * @param $campaignId string
+  *
+  * @return mixed
+  */
+ public function sendCampaign($campaignId)
+ {
+     return $this->campaign->send($campaignId);
+ }
+
+  /**
+  * Create a new newsletter campaign.
+  *
+  * @param $subject
+  * @param $content
+  * @param $list
+  *
+  * @return mixed
+  */
+ public function createCampaign($subject, $content, $list = '')
+ {
+     return $this->campaign->create($subject, $content, $list);
+ }
+
+
+ LAST CAMPAIGN ID: 47247349971
+
+ `campaign_id`, `web_id`,
+ c50f49a1c6, 5056856
